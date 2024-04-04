@@ -1,2 +1,7 @@
 D:\C#Console\Pass1Algorithm\obj\Debug\Pass1Algorithm.csproj.AssemblyReference.cache
 D:\C#Console\Pass1Algorithm\obj\Debug\Pass1Algorithm.csproj.CoreCompileInputs.cache
+D:\C#Console\Pass1Algorithm\bin\Debug\Pass1Algorithm.exe.config
+D:\C#Console\Pass1Algorithm\bin\Debug\Pass1Algorithm.exe
+D:\C#Console\Pass1Algorithm\bin\Debug\Pass1Algorithm.pdb
+D:\C#Console\Pass1Algorithm\obj\Debug\Pass1Algorithm.exe
+D:\C#Console\Pass1Algorithm\obj\Debug\Pass1Algorithm.pdb

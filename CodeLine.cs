@@ -9,33 +9,56 @@ namespace Pass1Algorithm
 {
 	public class CodeLine
 	{
-        public string Label { get { return Label; } set {}}
-		public int? Locctr { get { return Locctr; } set { } }
-        public string Opcode { get { return Opcode; } set { } }
+		private string label;
+		private string opcode;
+		private string operand;
 
-
-		public CodeLine(string label, int locctr, string opcode)
-        {
-			Label = label;
-			Locctr = locctr;
-			Opcode = opcode;
-		}
-
-		public CodeLine(string label, string opcode)
+		public string Label
 		{
-			Label = label;
-			Locctr = null;
-			Opcode = opcode;
+			get { return label; }
+			set { label = value; }
 		}
 
-		public CodeLine(string opcode)
-        {
-			Label = "";
-			Locctr = null;
-			Opcode = opcode;
+		public string Opcode
+		{
+			get { return opcode; }
+			set { opcode = value; }
 		}
 
+		public string Operand
+		{
+			get { return operand; }
+			set { operand = value; }
+		}
 
-    }
+		public CodeLine(string label, string opcode, string operand)
+		{
+			if (label != null)
+			{
+				Label = label;
+			}
+			else
+			{
+				Label = "";
+			}
+			if (opcode != null)
+			{
+				Opcode = opcode;
+			}
+			else
+			{
+				opcode = "";
+			}
+			if (operand != null)
+			{
+				Operand = operand;
+
+			}
+			else
+			{
+				Operand = "";
+			}
+		}
+	}
 
 }

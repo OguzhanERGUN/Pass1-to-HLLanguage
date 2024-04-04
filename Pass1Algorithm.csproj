@@ -50,5 +50,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="CodeTXT\source_code.txt" />
+    <Content Include="Optab\OPTAB.txt" />
+    <Content Include="ReadMe\ReadMe.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

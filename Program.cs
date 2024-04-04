@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Pass1Algorithm
 {
 	internal class Program
 	{
 		//Label ve locctr içerir
-		private static Dictionary<string, string> symtab = new Dictionary<string, string>();
+		public static Dictionary<string, int> symtab = new Dictionary<string, int>();
 		static string[] Optab = {
 	"ADD",
 	"ADDF",
@@ -71,28 +72,38 @@ namespace Pass1Algorithm
 	"TIXR",
 	"WD"
 };
+		static bool founded;
 
 		//Kod satırları burada tutulur.
 		public static List<CodeLine> lines;
-
 		static void Main(string[] args)
 		{
+			lines = new List<CodeLine>();
+			StreamReader sr = new StreamReader("D:\\C#Console\\Pass1Algorithm\\CodeTXT\\source_code.txt");
+			string txtline = "";
+
+
+			while (txtline != null)
+			{
+				txtline = sr.ReadLine();
+				string txtlabel = txtline.Substring(0, 9);
+				string txtopcode = txtline.Substring(9, 6);
+				string txtoperand = txtline.Substring(16, txtline.Length - 16);
+				CodeLine codeLine = new CodeLine(txtlabel, txtopcode, txtoperand);
+				lines.Add(codeLine);
+
+			}
+
+			foreach (CodeLine line in lines)
+			{
+				Console.WriteLine(line.Opcode);
+			}
+			Console.ReadLine();
 			int locctr;
-			lines = ExampleCodeGenerator.CreateExampleCodeLines();
 
 			if (lines[0].Opcode == "START")
 			{
-				if (lines[0].Locctr == null)
-				{
-					Console.WriteLine("Start ile başlamak için loctr adresi " +
-						"vermeniz gerekir lütfen kodu inceleyin veya Start direktifini değiştirin. başlangıç adresi 0 olarak devam edecektir...");
-					Console.ReadKey();
-					locctr = 0;
-				}
-				else
-				{
-					locctr = (int)lines[0].Locctr;
-				}
+				locctr = int.Parse(lines[0].Operand);
 			}
 			else
 			{
@@ -116,6 +127,42 @@ namespace Pass1Algorithm
 					{
 						throw new Exception("Aynı sembol iki defa kullanılamaz...");
 					}
+
+					else
+					{
+						symtab.Add(line.Label, locctr);
+					}
+				}
+
+				for (int i = 0; i < Optab.Length; i++)
+				{
+					if (Optab[i] == line.Opcode)
+					{
+						locctr += 3;
+						founded = true;
+						break;
+					}
+				}
+
+
+				if (!founded)
+				{
+					switch (line.Opcode)
+					{
+						case "WORD":
+							locctr += 3;
+							break;
+
+						case "RESW":
+							locctr = locctr + (3 * int.Parse(line.Opcode));
+							break;
+
+						case "RESB":
+							locctr += int.Parse(line.Opcode);
+							break;
+						case "BYTE":
+							break;
+					}
 				}
 
 			}
@@ -128,29 +175,6 @@ namespace Pass1Algorithm
 
 
 
-	}
-
-	public static class ExampleCodeGenerator
-	{
-		public static List<CodeLine> CreateExampleCodeLines()
-		{
-			List<CodeLine> exampleCode = new List<CodeLine>();
-			// Örnek kod satırlarını oluştur ve ekle
-			exampleCode.Add(new CodeLine("COPY", 1000, "START"));
-			exampleCode.Add(new CodeLine("FIRST", "STL"));
-			exampleCode.Add(new CodeLine("CLOOP", "JSUB"));
-			exampleCode.Add(new CodeLine("LDA"));
-			exampleCode.Add(new CodeLine("COMP"));
-			exampleCode.Add(new CodeLine("JEQ"));
-			exampleCode.Add(new CodeLine("JSUB"));
-			exampleCode.Add(new CodeLine("J"));
-			exampleCode.Add(new CodeLine("ENDFILL", "LDA"));
-			exampleCode.Add(new CodeLine("STA"));
-
-
-
-			return exampleCode;
-		}
 	}
 
 }
